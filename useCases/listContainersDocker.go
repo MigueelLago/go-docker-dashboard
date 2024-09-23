@@ -4,20 +4,23 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/docker/docker/api/types/image"
+	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
 )
-
-// Struct represent DockerImage
-type DockerImage struct {
-	ID       string   `json:"id"`
-	RepoTags []string `json:"repo_tags"`
-	Size     int64    `json:"size"`
-}
 
 // Struct Docker Operations
 type DockerUseCase struct {
 	Client *client.Client
+}
+
+// Struct represent DockerImage
+type DockerContainer struct {
+	ID      string   `json:"id"`
+	Image   string   `json:"image"`
+	Command string   `json:"command"`
+	Created int64    `json:"created"`
+	Names   []string `json:"names"`
+	Status  string   `json:"status"`
 }
 
 // Create new UseCase for Docker
@@ -26,21 +29,28 @@ func NewDockerUseCase(cli *client.Client) *DockerUseCase {
 }
 
 // List DockerImages
-func (useCase *DockerUseCase) ListDockerImages() ([]DockerImage, error) {
-	images, err := useCase.Client.ImageList(context.Background(), image.ListOptions{})
+func (useCase *DockerUseCase) ListDockerContainers(onlyRunning bool) ([]DockerContainer, error) {
+
+	containers, err := useCase.Client.ContainerList(context.Background(), container.ListOptions{
+		All: !onlyRunning,
+	})
 
 	if err != nil {
 		return nil, fmt.Errorf("erro ao listar imagens: %w", err)
 	}
 
-	var dockerImages []DockerImage
-	for _, img := range images {
-		dockerImages = append(dockerImages, DockerImage{
-			ID:       img.ID,
-			RepoTags: img.RepoTags,
-			Size:     img.Size,
-		})
+	var dockerContainers []DockerContainer
+	for _, container := range containers {
+		dockerContainer := DockerContainer{
+			ID:      container.ID,
+			Image:   container.Image,
+			Command: container.Command,
+			Created: container.Created,
+			Names:   container.Names,
+			Status:  container.Status,
+		}
+		dockerContainers = append(dockerContainers, dockerContainer)
 	}
 
-	return dockerImages, nil
+	return dockerContainers, nil
 }
