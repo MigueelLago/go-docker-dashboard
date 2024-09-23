@@ -1,14 +1,17 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/docker/docker/client"
+	"github.com/gin-gonic/gin"
+)
 
-func Initialize() {
+func Initialize(dockerClient *client.Client) {
 
 	// Define app Gin Engine
 	app := gin.Default()
 
 	// Init Routes
-	initRoutes(app)
+	initRoutes(app, dockerClient)
 
 	// App listen
 	app.Run(":8080")
