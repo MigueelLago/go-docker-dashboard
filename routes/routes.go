@@ -22,5 +22,6 @@ func initRoutes(router *gin.Engine, dockerClient *client.Client) {
 		docker.GET("/containers", dockerHandler.ListContainers)
 		docker.DELETE("/container/:containerID", dockerHandler.DeleteContainerDocker)
 		docker.POST("/container/:containerID", dockerHandler.StartContainerDocker)
+		docker.POST("/container/stop/:containerID", dockerHandler.StopContainerDocker)
 	}
 }
