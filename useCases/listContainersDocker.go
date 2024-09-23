@@ -5,13 +5,7 @@ import (
 	"fmt"
 
 	"github.com/docker/docker/api/types/container"
-	"github.com/docker/docker/client"
 )
-
-// Struct Docker Operations
-type DockerUseCase struct {
-	Client *client.Client
-}
 
 // Struct represent DockerImage
 type DockerContainer struct {
@@ -21,11 +15,6 @@ type DockerContainer struct {
 	Created int64    `json:"created"`
 	Names   []string `json:"names"`
 	Status  string   `json:"status"`
-}
-
-// Create new UseCase for Docker
-func NewDockerUseCase(cli *client.Client) *DockerUseCase {
-	return &DockerUseCase{Client: cli}
 }
 
 // List DockerImages

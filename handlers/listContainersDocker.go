@@ -4,20 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	usecases "github.com/MigueelLago/go-docker-dashboard/useCases"
 	"github.com/gin-gonic/gin"
 )
-
-type DockerHandler struct {
-	UseCase *usecases.DockerUseCase
-}
-
-// Create instance
-func NewDockerHandler(useCase *usecases.DockerUseCase) *DockerHandler {
-	return &DockerHandler{
-		UseCase: useCase,
-	}
-}
 
 // List Images and return JSON format
 func (h *DockerHandler) ListContainers(ctx *gin.Context) {
