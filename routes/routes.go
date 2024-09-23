@@ -20,5 +20,6 @@ func initRoutes(router *gin.Engine, dockerClient *client.Client) {
 	docker := router.Group(basePath)
 	{
 		docker.GET("/containers", dockerHandler.ListContainers)
+		docker.DELETE("/container/:containerID", dockerHandler.DeleteContainerDocker)
 	}
 }
