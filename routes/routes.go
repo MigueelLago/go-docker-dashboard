@@ -23,5 +23,6 @@ func initRoutes(router *gin.Engine, dockerClient *client.Client) {
 		docker.DELETE("/container/:containerID", dockerHandler.DeleteContainerDocker)
 		docker.POST("/container/:containerID", dockerHandler.StartContainerDocker)
 		docker.POST("/container/stop/:containerID", dockerHandler.StopContainerDocker)
+		docker.GET("/containers/search", dockerHandler.FindContainersByImage)
 	}
 }
