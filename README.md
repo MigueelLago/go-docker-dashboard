@@ -89,7 +89,7 @@ Busca containers que utilizam uma determinada imagem.
 - **Método**: `GET`
 - **Rota**: `/api/containers/search`
 - **Query Params**:
-  - `image`: Nome da imagem Docker.
+  - `image_name`: Nome da imagem Docker.
 - **Exemplo**:
 
   ```bash
@@ -131,7 +131,7 @@ Deleta um container pelo seu ID.
 
   ```json
   {
-    "message": "Container deleted successfully"
+    "message": "Container deletado com sucesso!"
   }
   ```
 
@@ -153,7 +153,7 @@ Inicia um container pelo seu ID.
 
   ```json
   {
-    "message": "Container started successfully"
+    "message": "Container iniciado com sucesso!"
   }
   ```
 
@@ -161,23 +161,33 @@ Inicia um container pelo seu ID.
 
 ```
 .
-├── Dockerfile
 ├── go.mod
 ├── go.sum
 ├── handlers
-│   ├── container_handler.go
+│   ├── construct.go
+│   ├── listContainersDocker.go
+│   ├── deleteContainersDocker.go
+│   ├── runContainersDocker.go
+│   ├── stopContainersDocker.go
+│   ├── findContainersDocker.go
+├── useCases
+│   ├── construct.go
+│   ├── listContainersDocker.go
+│   ├── deleteContainersDocker.go
+│   ├── runContainersDocker.go
+│   ├── stopContainersDocker.go
+│   ├── findContainersDocker.go
 ├── main.go
 ├── routes
 │   ├── router.go
-├── docker
-│   ├── docker_usecase.go
+│   ├── routes.go
 ```
 
 ### Descrição das Pastas:
 
 - **handlers**: Contém os handlers responsáveis por receber as requisições HTTP e chamar os casos de uso apropriados.
 - **routes**: Define as rotas da aplicação.
-- **docker**: Contém os casos de uso responsáveis pela interação com a API Docker.
+- **useCases**: Contém os casos de uso responsáveis pela interação com a API Docker.
 
 ## Contribuindo
 
